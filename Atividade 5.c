@@ -5,13 +5,13 @@
 
 #define TAM 250
 
-struct informacao
+struct dados
 {
     char nome[200], cargo[200];
     float salario;
 };
 
-float media(struct informacao funcionario[])
+float media(struct dados funcionario[])
 {
     int i, j;
     float soma, resultado;
@@ -33,7 +33,7 @@ int main()
 
     int opcao, i;
     
-    struct informacao funcionario[TAM];
+    struct dados funcionario[TAM];
 
     do
     {
@@ -47,7 +47,7 @@ int main()
         switch (opcao)
         {
         case 1:
-            setbuf(stdin, 0);
+            fflush(stdin);
 
             printf("Digite o nome do %dº funcionário: ", i + 1);
             gets(funcionario[i].nome);
@@ -57,7 +57,6 @@ int main()
 
             printf("Digite o valor do salario: ");
             scanf("%f", &funcionario[i].salario);
-            i++;
 
             system("cls||clear");
 
