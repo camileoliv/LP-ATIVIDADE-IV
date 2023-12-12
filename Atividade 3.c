@@ -4,87 +4,128 @@
 #include <string.h>
 #include <time.h>
 
-#define linha 9999
-
 struct dados_produto
 {
-    char nome;
+    char nome[200];
     float preco;
     int estoque;
 };
 
-void atualizarEstoque(struct dados_produto produto, int estoXiaomi, char *produtoNome)
+int atualizarEstoque(int pE, int quantidadeProduto)
 {
-    if (strcmp(produtoNome, ))
-    {
-    }
+    return pE - quantidadeProduto;
+}
+float precoNovo(float pP, float produtoValor)
+{
+    return  pP * produtoValor;
 }
 
 int main()
 {
-    int opcao, i;
-    char produtoNome;
+    int opcao, escolha, quantidadeProduto, estoqueAtualizado, pE;
+    float produtoValor, precoAtualizado, pP;
+    char produtoNome[200];
 
-    struct dados_produto produto[linha];
+    struct dados_produto produto;
 
-    do
-    {
-        printf("Registre o seu produto.\n");
-        printf("\n");
-
-    } while ();
-
-
-    printf("Lojinha da Xuxa\n");
-    printf("1 - Realizar uma compra\n");
-    printf("2 - Consultar estoque\n");
-    printf("3 - Sair do programa.\n");
-    printf("Resposta: ");
-    scanf("%i", &opcao);
+    printf("Deseja registrar seu novo produto?\n");
+    printf("1 - Sim.\n");
+    printf("2 - Não.\n");
+    scanf("%i", &escolha);
 
     system("cls||clear");
 
-    fflush(stdin);
-
-    switch (opcao)
+    switch (escolha)
     {
     case 1:
-        printf("Insira dados do produto");
+
+        setbuf(stdin, 0);
+        printf("Registre o seu produto.\n");
+        printf("Nome: ");
+        gets(produto.nome);
+
         printf("\n");
 
-        printf("Nome do produto: \n");
-        gets(produtoNome);
+        printf("Preço: ");
+        scanf("%f", &produto.preco);
 
-        if (strcmp(produto[i].nome, produtoNome) == 0)
-        {
-            printf("Valor do produto: %.1f \n", produto[i].preco);
-            break;
-        }
-        printf("\nProduto não encontrado.\n");
+        setbuf(stdin, 0);
+        printf("\n");
 
-        atualizarEstoque();
+        printf("Quantidade em estoque: ");
+        scanf("%i", &produto.estoque);
 
-        break;
+        printf("\n");
 
-    case 2:
-        printf("Produtos.\n");
-        printf("Celular Xiaomi.");
-        // printf("Preço: %.2f\n",xiaomiPrec);
-        printf("Quantidade: ");
+        printf("Registro finalizado!");
 
-        printf("Celular Samsung.");
-        // printf("Preço: %.2f\n",samsungPrec);
-        printf("Quantidade: ");
-
-        printf("Celular Motorola.");
-        // printf("Preço: %.2f\n",motorolaPrec);
-        printf("Quantidade: ");
+        system("cls||clear");
 
         break;
 
     default:
         break;
     }
+
+    do
+    {
+        printf("Lojinha da Xuxa\n");
+        printf("1 - Realizar uma compra\n");
+        printf("2 - Consultar estoque\n");
+        printf("3 - Sair do programa.\n");
+        printf("Resposta: ");
+        scanf("%i", &opcao);
+
+        system("cls||clear");
+
+        fflush(stdin);
+
+        switch (opcao)
+        {
+        case 1:
+            fflush(stdin);
+
+            printf("Nome do produto: \n");
+            gets(produtoNome);
+
+            printf("Digite o valor do produto: ");
+            scanf("%f", &produtoValor);
+
+            pP = produtoValor - produto.preco;
+
+            printf("Quantidade desejada do produto: ");
+            scanf("%i", &quantidadeProduto);
+
+            if (quantidadeProduto <= produto.estoque)
+            {
+                pE = quantidadeProduto - produto.estoque;
+                printf("Compra realizada com sucesso!\n");
+            }
+            else
+            {
+                printf("Sem estoque suficiente.\n");
+            }
+
+            precoAtualizado = precoNovo(pP, produtoValor);
+            estoqueAtualizado = atualizarEstoque(pE, quantidadeProduto);
+
+            break;
+
+        case 2:
+
+            printf("Produto em estoque.");
+            printf("\n");
+            printf("Nome: %s \n", produto.nome);
+            printf("Preço total do estoque: %.2f \n", precoAtualizado);
+            printf("Estoque: %i \n", estoqueAtualizado);
+
+            break;
+
+        default:
+            break;
+        }
+
+    } while (opcao != 3);
 
     return 0;
 }
